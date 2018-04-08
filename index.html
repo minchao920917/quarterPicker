@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>季度选择器</title>
+		<link rel="stylesheet" type="text/css" href="quarterPicker.css"/>
+		<script src="jquery.min.js"></script>
+	</head>
+	<body>
+		<p>1、默认调用 $.QuarterPicker()</p>
+		<label for="default">默认：</label>
+		<input type="text" name="default" id="default" value="" style="margin-top: 20px;"/>
+		<br>
+		<br>
+		<p>2、带回调方法的 $.QuarterPicker(callback:callback)</p>
+		<label for="startTime">开始时间：</label>
+		<input type="text" name="startTime" id="startTime" value="" style="margin-top: 20px;"/>
+		<label for="endTime">结束时间：</label>
+		<input type="text" name="endTime" id="endTime" value="" style="margin-top: 20px;"/>
+		<script type="text/javascript" src="quarterPicker.js" ></script>
+		<script type="text/javascript" charset="utf-8">
+			$(function(){
+				$('#default').QuarterPicker();
+
+
+				//开始时间的回调函数
+				function start(value){
+					if($('#endTime').val()){
+						if(value > $('#endTime').val()){
+							alert("开始时间不能大于结束时间");
+							return false;
+						}
+						return true;
+					}else{
+						return true;
+					}
+					
+				}
+				//结束时间的回调函数
+				function end(value){
+					if($('#startTime').val()){
+						if(value < $('#startTime').val()){
+							alert("结束时间不能小于开始时间");
+							return false;
+						}
+						return true;
+					}else{
+						return true;
+					}
+				}
+				$('#startTime').QuarterPicker(
+					{	
+						callback:start
+					}
+				);
+				$('#endTime').QuarterPicker(
+					{	
+						callback:end
+					}
+				);
+			})
+		</script>
+	</body>
+</html>
